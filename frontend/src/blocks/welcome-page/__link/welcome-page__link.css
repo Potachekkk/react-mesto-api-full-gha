@@ -1,0 +1,10 @@
+.welcome-page__link {
+  color: inherit;
+  text-decoration: none;
+  transition: opacity 0.5s ease;
+  padding-top: 15px;
+}
+
+.welcome-page__link:hover {
+  opacity: 0.6;
+}

@@ -1,0 +1,16 @@
+.welcome-page__inputs {
+  background-color: initial;
+  border: none;
+  border-bottom: 2px solid #ccc;
+  box-sizing: border-box;
+  color: inherit;
+  font-weight: 500;
+  height: 27px;
+  padding: 0 0 7px;
+  width: 100%;
+}
+
+.welcome-page__inputs::placeholder {
+  font-weight: 400;
+  color: #ccc;
+}
