@@ -69,7 +69,7 @@ function App() {
           status: true,
           text: "Вы успешно зарегистрировались!",
         });
-        navigate("/sign-in", { replace: true });
+        navigate("/signin", { replace: true });
       })
       .catch(() => {
         setMessage({
@@ -221,7 +221,7 @@ function App() {
 
   function signOut() {
     localStorage.removeItem("jwt");
-    navigate("/sign-in");
+    navigate("/signin");
     setIsLoggedIn(false);
     setEmail("");
   }
@@ -233,7 +233,7 @@ function App() {
           <Header userData={email} onSignOut={signOut} />
           <Routes>
             <Route
-              path="/sign-up"
+              path="/signup"
               element={
                 <Register
                   onRegister={handleRegister}
@@ -242,7 +242,7 @@ function App() {
                 />
               }
             />
-            <Route path="/sign-in" element={<Login onLogin={handleLogin} />} />
+            <Route path="/signin" element={<Login onLogin={handleLogin} />} />
             <Route
               path="/"
               element={

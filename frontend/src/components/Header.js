@@ -14,17 +14,17 @@ function Header({ userData, openPopupBurger, onSignOut }) {
       <img className="header__logo" src={headerLogo} alt="Место Россия" />
       <Routes>
         <Route
-          path="/sign-up"
+          path="/signup"
           element={
-            <Link to={"/sign-in"} className="header__navLink">
+            <Link to={"/signin"} className="header__navLink">
               Войти
             </Link>
           }
         />
         <Route
-          path="/sign-in"
+          path="/signin"
           element={
-            <Link to={"/sign-up"} className="header__navLink">
+            <Link to={"/signup"} className="header__navLink">
               Регистрация
             </Link>
           }

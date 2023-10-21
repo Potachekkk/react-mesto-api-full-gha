@@ -1,7 +1,6 @@
 export class Api {
-  constructor(options) {
-    this._url = options.url;
-    this._headers = options.headers;
+  constructor({ url }) {
+    this._url = url;
     this._checkResponse = (res) => {
       if (res.ok) {
         return res.json();
@@ -10,21 +9,30 @@ export class Api {
     };
   }
   getUserInfo() {
+    const token = localStorage.getItem('jwt');
     return fetch(`${this._url}/users/me`, {
-      headers: this._headers,
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
     }).then((res) => this._checkResponse(res));
   }
 
   getInitialCards() {
+    const token = localStorage.getItem('jwt');
     return fetch(`${this._url}/cards`, {
-      headers: this._headers,
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
     }).then((res) => this._checkResponse(res));
   }
 
   editUserInfo(data) {
+    const token = localStorage.getItem('jwt');
     return fetch(`${this._url}/users/me`, {
       method: "PATCH",
-      headers: this._headers,
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
       body: JSON.stringify({
         name: data.name,
         about: data.about,
@@ -33,9 +41,12 @@ export class Api {
   }
 
   sendNewCard(data) {
+    const token = localStorage.getItem('jwt');
     return fetch(`${this._url}/cards`, {
       method: "POST",
-      headers: this._headers,
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
       body: JSON.stringify({
         name: data.name,
         link: data.link,
@@ -44,30 +55,42 @@ export class Api {
   }
 
   deleteCard(cardID) {
+    const token = localStorage.getItem('jwt');
     return fetch(`${this._url}/cards/${cardID}`, {
       method: "DELETE",
-      headers: this._headers,
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
     });
   }
 
   setLike(cardID) {
+    const token = localStorage.getItem('jwt');
     return fetch(`${this._url}/cards/${cardID}/likes`, {
       method: "PUT",
-      headers: this._headers,
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
     }).then((res) => this._checkResponse(res));
   }
 
   deleteLike(cardID) {
+    const token = localStorage.getItem('jwt');
     return fetch(`${this._url}/cards/${cardID}/likes`, {
       method: "DELETE",
-      headers: this._headers,
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
     }).then((res) => this._checkResponse(res));
   }
 
   updateAvatar(data) {
+    const token = localStorage.getItem('jwt');
     return fetch(`${this._url}/users/me/avatar`, {
       method: "PATCH",
-      headers: this._headers,
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
       body: JSON.stringify({
         avatar: data.avatar,
       }),
@@ -84,9 +107,5 @@ export class Api {
 }
 
 export const api = new Api({
-  url: "https://nomoreparties.co/v1/cohort-71",
-  headers: {
-    authorization: "cea06709-9d9e-4f6f-a014-355766539fc7",
-    "Content-type": "application/json",
-  },
+  url: "http://localhost:3000",
 });
