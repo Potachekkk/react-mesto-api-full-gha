@@ -5,6 +5,7 @@ const { errors } = require('celebrate');
 const { handleError } = require('./middlewares/error-handling');
 const { routes } = require('./routes');
 const { PORT, MONGO_URL } = require('./config/config');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const app = express();
 
@@ -16,7 +17,11 @@ app.use(express.json());
 
 mongoose.connect(MONGO_URL);
 
+app.use(requestLogger);
+
 app.use(routes);
+
+app.use(errorLogger);
 
 app.use(errors());
 
