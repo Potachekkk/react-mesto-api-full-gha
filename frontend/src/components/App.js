@@ -93,7 +93,7 @@ function App() {
         .getContent(jwt)
         .then((res) => {
           setIsLoggedIn(true);
-          setEmail(res.data.email);
+          setEmail(res.email);
           navigate("/", { replace: true });
         })
         .catch((err) => {
@@ -105,9 +105,9 @@ function App() {
   useEffect(() => {
     if (isLoggedIn) {
       Promise.all([api.getUserInfo(), api.getInitialCards()])
-        .then((values) => {
-          setCurrentUser(values[0]);
-          setCards([...values[1]]);
+        .then(( [info, initialCards] ) => {
+          setCurrentUser(info);
+          setCards(initialCards.reverse());
         })
         .catch((err) => {
           console.log(err.status);
@@ -178,8 +178,7 @@ function App() {
   }
 
   function handleCardLike(card) {
-    const isLiked = card.likes.some((i) => i._id === currentUser._id);
-
+    const isLiked = card.likes.some(id => id === currentUser._id);
     api
       .changeLikeCardStatus(card._id, !isLiked)
       .then((newCard) => {
@@ -206,16 +205,16 @@ function App() {
       });
   }
 
-  function handleAddPlaceSubmit(objNewCard) {
+  function handleAddPlaceSubmit(data) {
     api
-      .sendNewCard(objNewCard)
+      .sendNewCard(data.name, data.link)
       .then((newCard) => {
-        setCards([newCard, ...cards]);
+        setCards([...cards, newCard]);
         closeAllPopups();
       })
       .catch((err) => {
         console.log(err.status);
-        alert(`Ошибка загрузки данных:\n ${err.status}\n ${err.text}`);
+        alert(`Ошибка загрузки данных1:\n ${err.status}\n ${err.text}`);
       });
   }
 

@@ -15,7 +15,7 @@ const {
 
 module.exports.getUsers = (_, res, next) => {
   User.find({})
-    .then((users) => res.status(OK_STATUS).send({ data: users }))
+    .then((users) => res.status(OK_STATUS).send(users))
     .catch(next);
 };
 
@@ -24,7 +24,7 @@ module.exports.getUserById = (req, res, next) => {
   User
     .findById(userId)
     .then((user) => {
-      if (user) return res.status(OK_STATUS).send({ user });
+      if (user) return res.status(OK_STATUS).send(user);
       throw new NotFound('Данные по указанному id не найдены');
     })
     .catch((e) => {
@@ -52,13 +52,7 @@ module.exports.createUser = (req, res, next) => {
       email,
       password: hash,
     }))
-    .then(() => {
-      res.status(OK_CREATED_STATUS).send({
-        data: {
-          name, about, avatar, email,
-        },
-      });
-    })
+    .then((data) => res.status(OK_CREATED_STATUS).send(data))
     .catch((e) => {
       if (e.code === 11000) {
         next(new ConflictError('Этот email уже зарегистрирован'));
@@ -84,7 +78,7 @@ const updateUser = (req, res, next, newData) => {
     throw new NotFound('Пользователь с таким id не найден');
   })
     .then((user) => {
-      res.status(OK_STATUS).send({ data: user });
+      res.status(OK_STATUS).send(user);
     })
     .catch(next);
 };
@@ -117,7 +111,7 @@ module.exports.currentUser = (req, res, next) => {
       throw new NotFound('Пользователь с таким id не найден');
     })
     .then((user) => {
-      res.status(OK_STATUS).send({ data: user });
+      res.status(OK_STATUS).send(user);
     })
     .catch(next);
 };
