@@ -63,7 +63,8 @@ export class Api {
         authorization: `Bearer ${token}`,
         'Content-type': 'application/json',
       },
-    });
+    })
+    .then((res) => this._checkResponse(res));
   }
 
   // setLike(cardID) {
