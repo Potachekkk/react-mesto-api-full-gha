@@ -67,28 +67,6 @@ export class Api {
     .then((res) => this._checkResponse(res));
   }
 
-  // setLike(cardID) {
-  //   const token = localStorage.getItem('jwt');
-  //   return fetch(`${this._url}/cards/${cardID}/likes`, {
-  //     method: "PUT",
-  //     headers: {
-  //       authorization: `Bearer ${token}`,
-  //       'Content-type': 'application/json'
-  //     },
-  //   }).then((res) => this._checkResponse(res));
-  // }
-
-  // deleteLike(cardID) {
-  //   const token = localStorage.getItem('jwt');
-  //   return fetch(`${this._url}/cards/${cardID}/likes`, {
-  //     method: "DELETE",
-  //     headers: {
-  //       authorization: `Bearer ${token}`,
-  //       'Content-type': 'application/json'
-  //     },
-  //   }).then((res) => this._checkResponse(res));
-  // }
-
   updateAvatar(data) {
     const token = localStorage.getItem('jwt');
     return fetch(`${this._url}/users/me/avatar`, {
@@ -103,15 +81,6 @@ export class Api {
     }).then((res) => this._checkResponse(res));
   }
 
-//   changeLikeCardStatus(cardId, isLiked) {
-//     if (isLiked) {
-//       return this.setLike(cardId);
-//     } else {
-//       return this.deleteLike(cardId);
-//     }
-//   }
-// 
-
 changeLikeCardStatus(cardID, like) {
   const token = localStorage.getItem('jwt')
   return fetch(`${this._url}/cards/${cardID}/likes`, {
@@ -125,5 +94,5 @@ changeLikeCardStatus(cardID, like) {
 }
 }
 export const api = new Api({
-  url: "http://localhost:3000",
+  url: "https://api.vladik.student.nomoredomainsrocks.ru",
 });
