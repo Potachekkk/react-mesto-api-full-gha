@@ -96,3 +96,6 @@ changeLikeCardStatus(cardID, like) {
 export const api = new Api({
   url: "https://api.vladik.student.nomoredomainsrocks.ru",
 });
+// export const api = new Api({
+//   url: "http://localhost:3000",
+// });
