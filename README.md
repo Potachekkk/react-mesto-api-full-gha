@@ -7,7 +7,7 @@
 
 ## Ссылки на проект
 
-IP-адрес 158.160.125.139
+IP 158.160.125.139
 
 Frontend https://vladik.student.nomoredomainsrocks.ru
 
