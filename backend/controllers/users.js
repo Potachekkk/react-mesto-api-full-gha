@@ -52,7 +52,16 @@ module.exports.createUser = (req, res, next) => {
       email,
       password: hash,
     }))
-    .then((data) => res.status(OK_CREATED_STATUS).send(data))
+    .then((newUser) => {
+      res.status(OK_CREATED_STATUS).send({
+        data: {
+          name: newUser.name,
+          about: newUser.about,
+          avatar: newUser.avatar,
+          email: newUser.email,
+        },
+      });
+    })
     .catch((e) => {
       if (e.code === 11000) {
         next(new ConflictError('Этот email уже зарегистрирован'));
