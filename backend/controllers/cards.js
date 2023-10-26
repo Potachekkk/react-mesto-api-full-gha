@@ -9,7 +9,7 @@ const { OK_STATUS, OK_CREATED_STATUS } = require('../config/config');
 module.exports.getCards = (_, res, next) => {
   Card
     .find({})
-    .populate(['owner', 'likes'])
+    .populate('owner')
     .then((cards) => res.status(OK_STATUS).send(cards))
     .catch(next);
 };
@@ -35,7 +35,6 @@ module.exports.deleteCard = (req, res, next) => {
     .orFail(() => {
       throw new NotFound('Карточка не найдена');
     })
-    .populate(['owner', 'likes'])
     .then((card) => {
       if (!card.owner.equals(ownerId)) {
         throw new NotOwner('Невозможно удалить чужую карточку');
@@ -59,7 +58,7 @@ module.exports.deleteCard = (req, res, next) => {
 const updateCard = (req, res, next, method) => {
   const { params: { cardId } } = req;
   Card.findByIdAndUpdate(cardId, { [method]: { likes: req.user._id } }, { new: true })
-    .populate(['owner', 'likes'])
+    .populate('likes')
     .orFail(() => new NotFound('Нет карточки по заданному id'))
     .then((card) => {
       res.send(card);

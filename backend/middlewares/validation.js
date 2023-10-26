@@ -44,7 +44,7 @@ const validateCreateCard = celebrate({
   }),
 });
 
-const validateUpdateCard = celebrate({
+const validateId = celebrate({
   params: Joi.object().keys({
     cardId: Joi.string().required().regex(REG_ID),
   }),
@@ -57,5 +57,5 @@ module.exports = {
   validateUpdateUser,
   validateUpdateAvatar,
   validateCreateCard,
-  validateUpdateCard,
+  validateId,
 };

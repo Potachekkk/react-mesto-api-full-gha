@@ -16,7 +16,7 @@ routes.post('/signup', validateCreateUser, createUser);
 routes.use('/users', auth, userRouter);
 routes.use('/cards', auth, cardRouter);
 
-routes.all('*', (req, res, next) => {
+routes.all('*', auth, (req, res, next) => {
   next(new NotFound('Такой страницы не существует'));
 });
 

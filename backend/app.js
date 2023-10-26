@@ -17,8 +17,6 @@ app.use(express.json());
 
 app.use(helmet());
 
-app.use(express.json());
-
 mongoose.connect(MONGO_URL);
 
 app.use(requestLogger);

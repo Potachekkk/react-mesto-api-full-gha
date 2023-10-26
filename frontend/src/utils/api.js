@@ -93,9 +93,9 @@ changeLikeCardStatus(cardID, like) {
     .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`)); 
 }
 }
-export const api = new Api({
-  url: "https://api.vladik.student.nomoredomainsrocks.ru",
-});
 // export const api = new Api({
-//   url: "http://localhost:3000",
+//   url: "https://api.vladik.student.nomoredomainsrocks.ru",
 // });
+export const api = new Api({
+  url: "http://localhost:3000",
+});

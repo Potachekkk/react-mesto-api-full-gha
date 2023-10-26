@@ -91,7 +91,13 @@ const updateUser = (req, res, next, newData) => {
     .then((user) => {
       res.status(OK_STATUS).send(user);
     })
-    .catch(next);
+    .catch((e) => {
+      if (e instanceof mongoose.Error.ValidationError) {
+        next(new BadRequest('Переданы не валидные данные'));
+      } else {
+        next(e);
+      }
+    });
 };
 
 module.exports.updateUserInfo = (req, res, next) => {
