@@ -9,7 +9,6 @@ const { OK_STATUS, OK_CREATED_STATUS } = require('../config/config');
 module.exports.getCards = (_, res, next) => {
   Card
     .find({})
-    .populate('owner')
     .then((cards) => res.status(OK_STATUS).send(cards))
     .catch(next);
 };
@@ -58,7 +57,6 @@ module.exports.deleteCard = (req, res, next) => {
 const updateCard = (req, res, next, method) => {
   const { params: { cardId } } = req;
   Card.findByIdAndUpdate(cardId, { [method]: { likes: req.user._id } }, { new: true })
-    .populate('likes')
     .orFail(() => new NotFound('Нет карточки по заданному id'))
     .then((card) => {
       res.send(card);
